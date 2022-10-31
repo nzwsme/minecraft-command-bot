@@ -129,7 +129,7 @@ async fn whitelist_add(ctx: Context, add_reaction: Reaction) -> CommandResult {
 }
 
 async fn tail_log(ctx: Arc<Context>, path: String, channel_id: u64) -> CommandResult {
-    let log_re = Regex::new(r"^\[(.*)]\s\[([^/]*)/(.*)][^:]*:\s(.*)$").unwrap();
+    let log_re = Regex::new(r"^\[(.*)]\s\[([^/]*)/(.*)]\s\[(.*)][^:]*:\s(.*)$").unwrap();
     let mut lines = MuxedLines::new().unwrap();
     lines.add_file(path).await.unwrap();
     while let Ok(Some(line)) = lines.next_line().await {
@@ -148,7 +148,7 @@ async fn tail_log(ctx: Arc<Context>, path: String, channel_id: u64) -> CommandRe
                 .map(|l| l.as_str().to_string())
                 .unwrap_or("".to_string());
             let message = cap
-                .get(4)
+                .get(5)
                 .map(|m| m.as_str().to_string())
                 .unwrap_or("".to_string());
 
